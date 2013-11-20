@@ -21,6 +21,7 @@ App.Router.map(function(){
       this.route('edit');
     });
     this.route('create');
+    this.route('completed');
   });
 });
 
@@ -45,6 +46,12 @@ App.TasksRoute = Em.Route.extend({
       task.set('done', false);
       task.save();
     }
+  }
+});
+
+App.TasksCompletedRoute = Em.Route.extend({
+  model: function() {
+    return this.modelFor('tasks').filterBy('done', true);
   }
 });
 
