@@ -16,11 +16,13 @@
 
   <!-- tasks template -->
   <script type="text/x-handlebars" id="tasks">
-    {{#link-to "tasks.create"}} Add task {{/link-to}}
+    {{#link-to "tasks.all"}}View All{{/link-to}} |
+    {{#link-to "tasks.completed"}}Only completed{{/link-to}} |
+    {{#link-to "tasks.create"}}Add new task{{/link-to}}
 
     <h2>Task List:</h2>
     <ul>
-      {{#each task in controller}}
+      {{#each task in filteredContent}}
         <li>
           {{#if task.done}}
             <button {{action "uncheck" task}}>Uncheck</button>

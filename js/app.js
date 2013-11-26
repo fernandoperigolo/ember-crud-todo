@@ -22,6 +22,7 @@ App.Router.map(function(){
     });
     this.route('create');
     this.route('completed');
+    this.route('all');
   });
 });
 
@@ -37,6 +38,9 @@ App.TasksRoute = Em.Route.extend({
   model: function(){
     return this.store.find('task');
   },
+  setupController: function(controller, tasks) {
+    controller.set('filteredContent', tasks);
+  },
   actions:{
     check:function(task){
       task.set('done', true);
@@ -50,8 +54,14 @@ App.TasksRoute = Em.Route.extend({
 });
 
 App.TasksCompletedRoute = Em.Route.extend({
-  model: function() {
-    return this.modelFor('tasks').filterBy('done', true);
+  setupController: function() {
+    this.controllerFor('tasks').set('filteredContent', this.modelFor('tasks').filterBy('done', true));
+  }
+});
+
+App.TasksAllRoute = Em.Route.extend({
+  setupController: function() {
+    this.controllerFor('tasks').set('filteredContent', this.modelFor('tasks'));
   }
 });
 
